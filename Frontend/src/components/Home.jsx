@@ -1,27 +1,39 @@
 import React, { useState } from "react";
-import MyForm from "./Form";
+import Form from "../components/Form";
+
 import TechStack from "./TechStack";
 
 export default function Home() {
   const [toggle, setToggle] = useState(false);
 
+  // This function will be passed to the form to close it
+  const handleClose = () => setToggle(false);
+
   return (
     <div className="home">
-      <button onClick={() => setToggle(!toggle)} className="btn">
+      {/* 1. Only render the form ONCE and pass the handleClose function */}
+      {toggle && <Form close={handleClose} />}
+
+      <button onClick={() => setToggle(!toggle)} className="btn anim">
         Contact Me
       </button>
-      {toggle && <MyForm />}
+
       <div className="content">
-        <h4>Sedat Ramadani</h4>
-        <h5>Hi I'm Sedat </h5>
-        <h1>Full Stack Developer</h1>
-        <p>
-          I am a Full-Stack Developer specializing in building modern, scalable
-          web applications using React, JavaScript, and ASP.NET Core. I design
-          and develop complete solutions — from responsive user interfaces to
-          secure backend APIs and databases.
+        <h4 className="anim">Sedat Ramadani</h4>
+        <h5 className="anim">Hi I'm Sedat </h5>
+        <h1 className="anim"> Frontend Developer</h1>
+        <p className="anim">
+          I am a Frontend Developer specializing in building modern, responsive
+          web applications using React.js and JavaScript. I focus on creating
+          intuitive user interfaces, seamless user experiences, and clean,
+          maintainable code. I enjoy turning design concepts into interactive
+          web applications that perform flawlessly across devices.
         </p>
-        <img src="./src/assets/sedat.jpg" alt="Sedat" className="profile" />
+        <img
+          src="./src/assets/sedat.png"
+          alt="Sedat"
+          className="profile anim"
+        />
         <TechStack />
       </div>
     </div>

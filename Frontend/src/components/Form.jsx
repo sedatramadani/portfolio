@@ -1,51 +1,83 @@
 import { useState } from "react";
-import "../index.css";
 
-export default function MyForm() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+// 1. Destructure 'close' from props correctly
+const Form = ({ close }) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [isLoading, setIsLoading] = useState(false); // For TODO #6
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(
-      `Form submitted!\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
-    );
-    setName("");
-    setEmail("");
-    setMessage("");
+    setIsLoading(true); // Start loading
+
+    try {
+      const response = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert("Message sent successfully!");
+        setFormData({ name: "", email: "", message: "" });
+
+        // 2. Correct way to call the close function
+        if (close) close();
+      } else {
+        alert("Server error. Please try again.");
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert("Could not connect to the backend.");
+    } finally {
+      setIsLoading(false); // Stop loading
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="glass-form">
-      <label>
-        Name:
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Enter your name"
-        />
-      </label>
-      <label>
-        Email:
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
-        />
-      </label>
-      <label>
-        Message:
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Enter your message"
-        />
-      </label>
-      <button type="submit">Send</button>
+    <form className="glass-form" onSubmit={handleSubmit}>
+      {/* 3. Added an X button inside the form for manual closing */}
+      <button type="button" className="close-btn" onClick={close}>
+        ✕
+      </button>
+
+      <input
+        name="name"
+        value={formData.name}
+        onChange={handleChange}
+        placeholder="Name"
+        required
+        disabled={isLoading}
+      />
+      <input
+        name="email"
+        type="email"
+        value={formData.email}
+        onChange={handleChange}
+        placeholder="Email"
+        required
+        disabled={isLoading}
+      />
+      <textarea
+        name="message"
+        value={formData.message}
+        onChange={handleChange}
+        placeholder="Your message..."
+        required
+        disabled={isLoading}
+      />
+      <button type="submit" disabled={isLoading}>
+        {isLoading ? "Sending..." : "Send Message"}
+      </button>
     </form>
   );
-}
+};
+
+export default Form;

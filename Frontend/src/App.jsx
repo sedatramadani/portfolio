@@ -1,55 +1,40 @@
+import React from "react";
+
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
 
 import Home from "./components/Home";
-import MyForm from "./components/Form";
+import Form from "./components/Form";
 import About from "./components/About";
 
 function App() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/form");
-        setUser(response.data);
-
-        // If array -> take first
-        if (Array.isArray(response.data)) {
-          setUser(response.data[0]);
-        } else {
-          setUser(response.data);
-        }
-      } catch (err) {
-        setError("Failed to fetch user");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUser();
-  }, []);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
-  if (!user) return <p>No user</p>;
+  const handleSubmit = async (formData) => {
+    // Keep your existing fetch logic here...
+    const response = await fetch("http://localhost:5000/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+    return response; // Return the response so the Form component knows it finished
+  };
 
   return (
     <BrowserRouter>
-      {/* Navigation */}
-      <nav>
-        <Link to="/">Home</Link> | <Link to="/about">About</Link> |{" "}
+      <nav className="navbar">
+        <ul>
+          <li>
+            <Link to="/">Home</Link>{" "}
+          </li>{" "}
+          <li>
+            <Link to="/about">About</Link>{" "}
+          </li>
+        </ul>
       </nav>
-      <div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/form" element={<MyForm />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        {/* FIX: Pass the function as a prop */}
+        <Route path="/form" element={<Form onSubmit={handleSubmit} />} />
+      </Routes>
     </BrowserRouter>
   );
 }

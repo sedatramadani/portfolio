@@ -8,7 +8,7 @@ export default function About() {
   return (
     <div className="about">
       {/* CV Toggle Button */}
-      <button onClick={() => setToggle(!toggle)} className="btn">
+      <button onClick={() => setToggle(!toggle)} className="btn anim">
         {toggle ? "Back" : "CV"}
       </button>
 
@@ -20,28 +20,22 @@ export default function About() {
           <img
             src="./src/assets/ramadani.jpg"
             alt="Ramadani"
-            className="profile"
+            className="profile anim"
           />
 
-          <p>
-            I am a passionate full-stack developer with experience building
-            dynamic web applications using React on the frontend and .NET on the
-            backend. I focus on writing clean, maintainable code and
-            understanding the full lifecycle of projects, from design to
-            deployment. Continuously learning and experimenting with new
-            technologies, I enjoy solving real-world problems and creating
-            efficient, scalable solutions.
+          <p className="anim">
+            I am a passionate Frontend Developer specializing in building dynamic and responsive web applications using React.js. I focus on writing clean, maintainable code and delivering intuitive user experiences. I enjoy understanding the full project lifecycle — from design to deployment — and continuously exploring new technologies to solve real-world problems with efficient and scalable solutions.
           </p>
 
           {/* Links Section with Icons */}
-          <div className="links">
+          <div className="links anim">
             <a
               href="https://github.com/sedatramadani"
               target="_blank"
               rel="noopener noreferrer"
               className="link"
             >
-              <FaGithub className="icon" /> GitHub
+              <FaGithub className="icon anim" /> GitHub
             </a>
             <a
               href="https://www.linkedin.com/in/sedat-ramadani/"
@@ -49,7 +43,7 @@ export default function About() {
               rel="noopener noreferrer"
               className="link"
             >
-              <FaLinkedin className="icon" /> LinkedIn
+              <FaLinkedin className="icon anim" /> LinkedIn
             </a>
           </div>
         </>

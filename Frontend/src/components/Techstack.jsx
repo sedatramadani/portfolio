@@ -1,44 +1,30 @@
 import { MdWeb } from "react-icons/md";
-import { FaDatabase } from "react-icons/fa";
 
 export default function TechStack() {
   return (
     <div className="tech-stack">
-      <h3>Web Development Stack</h3>
+      <h3 className="anim">Web Development Stack</h3>
 
       {/* Frontend Section */}
       <div className="frontend">
-        <h4>
+        <h4 className="anim">
           Frontend <MdWeb />
         </h4>
-        <p>
+        <p className="anim">
           Builds interactive and responsive user interfaces using React.js,
           HTML5, CSS3, and modern JavaScript. Focuses on clean, dynamic, and
           user-friendly designs.
         </p>
       </div>
 
-      {/* Backend Section */}
-      <div className="backend">
-        <h4>
-          Backend <FaDatabase />
-        </h4>
-        <p>
-          Develops server-side logic with .NET and ASP.NET Core, handling
-          databases and APIs using Entity Framework Core and SQL Server. Ensures
-          secure and scalable backends.
-        </p>
-      </div>
-
-      {/* Full-Stack Section */}
-      <div className="full-stack">
-        <h4>
-          Full-Stack <MdWeb /> + <FaDatabase />
-        </h4>
-        <p>
-          Combines frontend and backend skills to create complete web
-          applications, integrating React interfaces with .NET server logic for
-          seamless, end-to-end functionality.
+      {/* Other Frontend Skills Section */}
+      <div className="additional-skills">
+        <h4 className="anim">Other Skills</h4>
+        <p className="anim">
+          Experienced with state management (Context API), routing (React
+          Router), component libraries (Material-UI, Tailwind CSS), and API
+          integration using fetch or Axios. Skilled at building responsive and
+          accessible web applications.
         </p>
       </div>
     </div>

@@ -6,23 +6,26 @@ const Cv = () => {
       <header className="cv-header">
         <div className="cv-header-content">
           <h1>Sedat Ramadani</h1>
-          <p className="title">Full-Stack Developer</p>
-          <p className="contact">sedatramadani@gmail.com | +389 72 687 373</p>
+          <p className="title">Frontend Developer</p>
+          <p className="contact">
+            sedatramadani23mk@gmail.com | +389 72 687 373
+          </p>
         </div>
       </header>
 
-      <section className="cv-section">
+      <section className="cv-profile">
         <h2>Profile</h2>
         <p>
-          I am a self-taught full-stack developer who has built practical
-          projects using React on the frontend and .NET on the backend. I focus
-          on understanding how systems work rather than relying on shortcuts or
-          copy-paste solutions. I continuously improve by refining real projects
-          and applying industry best practices.
+          I am a self-taught Frontend Developer who has built practical projects
+          using React.js. I focus on creating clean, responsive, and
+          user-friendly interfaces, prioritizing understanding how applications
+          work rather than relying on shortcuts or copy-paste solutions. I
+          continuously improve by refining real projects and applying industry
+          best practices in frontend development.
         </p>
       </section>
 
-      <section className="cv-section">
+      <section className="cv-education">
         <h2>Education</h2>
         <div className="education-item">
           <h3>
@@ -42,25 +45,20 @@ const Cv = () => {
         </div>
       </section>
 
-      <section className="cv-section">
+      <section className="cv-skills">
         <h2>Skills</h2>
         <div className="skills-container">
-          {[
-            "React.js",
-            "JavaScript",
-            "HTML5",
-            "CSS3",
-            "ASP.NET",
-            "WordPress",
-          ].map((skill) => (
-            <span key={skill} className="skill-badge">
-              {skill}
-            </span>
-          ))}
+          {["React.js", "JavaScript", "HTML5", "CSS3", "WordPress"].map(
+            (skill) => (
+              <span key={skill} className="skill-badge">
+                {skill}
+              </span>
+            ),
+          )}
         </div>
       </section>
 
-      <section className="cv-section">
+      <section className="cv-language">
         <h2>Languages</h2>
         <ul className="languages-list">
           <li>Albanian — Native</li>
