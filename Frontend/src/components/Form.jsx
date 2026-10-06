@@ -1,97 +1,121 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 const Form = ({ close }) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const [isLoading, setIsLoading] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    try {
-      const res = await fetch("http://localhost:5000/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+    setIsSubmitting(true);
+
+    const serviceId = "service_n3knwhr";
+    const templateId = "template_z9fg2po";
+    const publicKey = "6kZX-hZ3XC3EBusA_";
+
+    const templateParams = {
+      from_name: name,
+      to_name: "Sedat",
+      message: message,
+      email: email,
+    };
+
+    emailjs
+      .send(serviceId, templateId, templateParams, publicKey)
+      .then((response) => {
+        console.log("Email sent successfully!", response);
+        alert("Message sent successfully!");
+        setName("");
+        setEmail("");
+        setMessage("");
+
+        if (close) close();
+      })
+      .catch((error) => {
+        console.error("Error sending email:", error);
+        alert("Failed to send message. Please try again.");
+      })
+      .finally(() => {
+        setIsSubmitting(false);
       });
-      if (res.ok) {
-        alert("Message sent!");
-        setFormData({ name: "", email: "", message: "" });
-        close(); // mbyll form-in
-      } else {
-        alert("Server error. Try again.");
-      }
-    } catch (err) {
-      alert("Cannot connect to backend.");
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 anim">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-sm sm:max-w-[380px] bg-gray-900/90 backdrop-blur-xl p-6 sm:p-8 lg:p-10 rounded-xl flex flex-col gap-4 text-white relative max-h-[90vh] overflow-y-auto anim"
+    <form
+      onSubmit={handleSubmit}
+      className="relative top-140 z-10 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+    >
+      <button
+        type="button"
+        onClick={close}
+        className="absolute top-3 right-4 text-xl text-gray-400 hover:text-red-500 transition anim"
       >
-        {/* Close button */}
-        <button
-          type="button"
-          onClick={close}
-          className="absolute top-3 right-4 text-xl hover:text-red-500 transition anim"
-        >
-          ✕
-        </button>
+        ✕
+      </button>
 
-        <input
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-          className="p-3 rounded bg-white/10 outline-none focus:ring-2 focus:ring-blue-500 anim"
-          required
-          disabled={isLoading}
-        />
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          className="p-3 rounded bg-white/10 outline-none focus:ring-2 focus:ring-blue-500 anim"
-          required
-          disabled={isLoading}
-        />
-        <textarea
-          name="message"
-          placeholder="Your message..."
-          rows="4"
-          value={formData.message}
-          onChange={handleChange}
-          className="p-3 rounded bg-white/10 outline-none focus:ring-2 focus:ring-blue-500 anim"
-          required
-          disabled={isLoading}
-        />
-
-        <button
-          type="submit"
-          disabled={isLoading}
-          className={`py-3 rounded transition ${
-            isLoading
-              ? "bg-gray-500 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700 anim"
-          }`}
+      <div className="mb-4">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          for="name"
         >
-          {isLoading ? "Sending..." : "Send Message"}
-        </button>
-      </form>
-    </div>
+          Enter your name:
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            disabled={isSubmitting}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="name"
+            type="text"
+            placeholder="name"
+          />
+        </label>
+      </div>
+
+      <div className="mb-4">
+        <label className="flex flex-col gap-1">
+          Enter your email:
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            disabled={isSubmitting}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="email"
+            type="email"
+            placeholder="email"
+          />
+        </label>
+      </div>
+
+      <div className="mb-4">
+        <label className="flex flex-col gap-1">
+          Your Message:
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            required
+            disabled={isSubmitting}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id=",message"
+            type="text"
+            placeholder="message"
+          />
+        </label>
+      </div>
+
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+      >
+        {isSubmitting ? "Sending..." : "Send Message"}
+      </button>
+    </form>
   );
 };
 

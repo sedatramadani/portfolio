@@ -1,7 +1,6 @@
 const Cv = () => {
   return (
     <div className="bg-white text-black w-full max-w-[900px] mx-auto rounded-lg shadow-xl p-6 sm:p-10 lg:p-14 anim">
-      {/* HEADER */}
       <header className="border-b-2 border-black pb-6 mb-8 anim">
         <h1 className="text-3xl sm:text-4xl font-extrabold anim">
           Sedat Ramadani
@@ -14,7 +13,6 @@ const Cv = () => {
         </p>
       </header>
 
-      {/* PROFILE */}
       <section className="mb-8 anim">
         <h2 className="uppercase font-bold text-sm tracking-wider border-l-4 border-black pl-3 mb-4 anim">
           Profile
@@ -23,19 +21,16 @@ const Cv = () => {
           I am a self-taught Frontend Developer who has built practical projects
           using React.js. I focus on creating clean, responsive, and
           user-friendly interfaces, prioritizing understanding how applications
-          work rather than relying on shortcuts or copy-paste solutions. I
-          continuously improve by refining real projects and applying industry
-          best practices in frontend development.
+          work rather than relying on shortcuts or copy-paste solutions.
         </p>
       </section>
 
-      {/* EDUCATION */}
       <section className="mb-8 anim">
         <h2 className="uppercase font-bold text-sm tracking-wider border-l-4 border-black pl-3 mb-4 anim">
           Education
         </h2>
 
-        <div>
+        <div className="anim">
           <h3 className="font-bold text-base mb-2 anim">
             Bachelor's of Faculty of Contemporary Sciences and Technologies
           </h3>
@@ -45,17 +40,12 @@ const Cv = () => {
 
           <p className="text-gray-800 leading-relaxed text-sm sm:text-base anim">
             During my university studies, I built a solid academic foundation
-            and successfully graduated, but I realized early that real growth
-            required more than coursework alone. While my degree provided
-            structure and discipline, my strongest progress came from
-            self-driven learning, experimentation, and building projects beyond
-            the classroom. This combination shaped my practical mindset and
-            motivated me to continuously improve as a developer.
+            and successfully graduated, driven by continuous self-improvement
+            and practical projects.
           </p>
         </div>
       </section>
 
-      {/* SKILLS */}
       <section className="mb-8 anim">
         <h2 className="uppercase font-bold text-sm tracking-wider border-l-4 border-black pl-3 mb-4 anim">
           Skills
@@ -75,17 +65,16 @@ const Cv = () => {
         </div>
       </section>
 
-      {/* LANGUAGES */}
-      <section>
+      <section className="anim">
         <h2 className="uppercase font-bold text-sm tracking-wider border-l-4 border-black pl-3 mb-4 anim">
           Languages
         </h2>
 
         <ul className="space-y-2 text-sm sm:text-base text-gray-800 anim">
-          <li>Albanian — Native</li>
-          <li>English — Fluent</li>
-          <li>Macedonian — Fluent</li>
-          <li>Turkish — Fluent</li>
+          <li className="anim">Albanian — Native</li>
+          <li className="anim">English — Fluent</li>
+          <li className="anim">Macedonian — Fluent</li>
+          <li className="anim">Turkish — Fluent</li>
         </ul>
       </section>
     </div>
